@@ -519,6 +519,7 @@ pub enum Connector {
     Cybersource,
     #[default]
     Dummy,
+	Opayo,
     Fiserv,
     Globalpay,
     Klarna,
