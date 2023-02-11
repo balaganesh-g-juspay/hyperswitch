@@ -23,7 +23,7 @@ services:
       - monitoring
     networks:
       - router_net
-
+ 
   loki:
     image: grafana/loki:latest
     ports:
