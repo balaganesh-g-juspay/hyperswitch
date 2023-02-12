@@ -42,8 +42,7 @@ impl ConnectorCommon for Opayo {
     }
 
     fn common_get_content_type(&self) -> &'static str {
-        todo!()
-        // Ex: "application/x-www-form-urlencoded"
+        "application/json"
     }
 
     fn base_url<'a>(&self, connectors: &'a settings::Connectors) -> &'a str {
@@ -54,7 +53,10 @@ impl ConnectorCommon for Opayo {
         let auth: opayo::OpayoAuthType = auth_type
             .try_into()
             .change_context(errors::ConnectorError::FailedToObtainAuthType)?;
-        Ok(vec![(headers::AUTHORIZATION.to_string(), auth.api_key)])
+        Ok(vec![(
+            headers::AUTHORIZATION.to_string(),
+            format!("Bearer {}", auth.api_key),
+        )])
     }
 }
 
@@ -85,6 +87,7 @@ impl api::ConnectorAccessToken for Opayo {}
 impl ConnectorIntegration<api::AccessTokenAuth, types::AccessTokenRequestData, types::AccessToken>
     for Opayo
 {
+    
 }
 
 impl api::PaymentSync for Opayo {}
